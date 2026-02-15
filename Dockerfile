@@ -18,8 +18,6 @@ RUN groupadd -g 900 postgres && \
     apt-get autoremove --yes && \
     rm -rf /var/lib/cache /var/lib/log /usr/share/doc /usr/share/man && \
     test -z "$APT_PROXY" || rm /etc/apt/apt.conf.d/proxy.conf
-ARG PIP_INDEX_URL=
-ARG PIP_TRUSTED_HOST=
 
 # Copy application files
 WORKDIR /root/sosse
@@ -44,10 +42,10 @@ RUN make install_js_deps && \
     /venv/bin/pip cache purge
 
 # Configure nginx and directories
+RUN mkdir -p /etc/sosse/ /etc/sosse_src/ /var/log/sosse /var/log/uwsgi /var/www/.cache /var/www/.mozilla
 COPY debian/sosse.conf /etc/nginx/sites-enabled/default
 COPY debian/uwsgi.* /etc/sosse_src/
-RUN mkdir -p /etc/sosse/ /etc/sosse_src/ /var/log/sosse /var/log/uwsgi /var/www/.cache /var/www/.mozilla && \
-    chown -R root:www-data /etc/sosse /etc/sosse_src && \
+RUN chown -R root:www-data /etc/sosse /etc/sosse_src && \
     chmod 750 /etc/sosse_src/ && \
     chmod 640 /etc/sosse_src/* && \
     chown www-data:www-data /var/log/sosse /var/www/.cache /var/www/.mozilla
