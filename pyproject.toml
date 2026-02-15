@@ -24,9 +24,6 @@ funding = "https://sosse.io/fr/contact/"
 [tool.setuptools]
 packages = [
   "se",
-  "se.deps.linkpreview",
-  "se.deps.linkpreview.linkpreview",
-  "se.deps.linkpreview.linkpreview.preview",
   "se.deps.fake-useragent",
   "se.deps.fake-useragent.src",
   "se.deps.fake-useragent.src.fake_useragent",
