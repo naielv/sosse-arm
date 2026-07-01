@@ -1,4 +1,4 @@
-# Copyright 2022-2025 Laurent Defert
+# Copyright 2022-2026 Laurent Defert
 #
 #  This file is part of Sosse.
 #
@@ -53,10 +53,10 @@ def extract_css_url(css):
 
         prev = current
         current += 4
-        while css[current] == " " and current < len(css):
+        while current < len(css) and css[current] == " ":
             current += 1
 
-        if css[current] in ('"', "'") and current < len(css):
+        if current < len(css) and css[current] in ('"', "'"):
             quote = css[current]
             current += 1
 
@@ -73,10 +73,10 @@ def extract_css_url(css):
             # skip the closing quote
             current += 1
 
-        while css[current] == " " and current < len(css):
+        while current < len(css) and css[current] == " ":
             current += 1
 
-        if css[current] == ")" and current < len(css):
+        if current < len(css) and css[current] == ")":
             current += 1
 
         if url:
